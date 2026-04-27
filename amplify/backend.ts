@@ -39,6 +39,19 @@ const bedrockPolicy = new PolicyStatement({
 
 bedrockDataSource.grantPrincipal.addToPrincipalPolicy(bedrockPolicy);
 
+// Newer Claude models (Sonnet 4.5, Opus 4.1) require marketplace permissions
+// on the calling role to pass the subscription verification check.
+const marketplacePolicy = new PolicyStatement({
+  effect: Effect.ALLOW,
+  actions: [
+    "aws-marketplace:ViewSubscriptions",
+    "aws-marketplace:Subscribe",
+  ],
+  resources: ["*"],
+});
+
+bedrockDataSource.grantPrincipal.addToPrincipalPolicy(marketplacePolicy);
+
 // Also grant to authenticated and unauthenticated Cognito roles
 backend.auth.resources.authenticatedUserIamRole.addToPrincipalPolicy(
   new PolicyStatement({
