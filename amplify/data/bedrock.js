@@ -4,7 +4,7 @@ export function request(ctx) {
 
   return {
     // ADD THE "us." PREFIX TO ENABLE ON-DEMAND THROUGHPUT
-    resourcePath: `/model/us.anthropic.claude-sonnet-4-5-20250929-v1:0/invoke`,
+    resourcePath: `/model/us.anthropic.claude-3-5-sonnet-20241022-v2:0/invoke`,
     method: "POST",
     params: {
       headers: {
